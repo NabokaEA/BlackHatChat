@@ -1,10 +1,16 @@
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client extends Application {
     private  String SERVER_ADDR = "localhost" ;
     private  int SERVER_PORT = 8189 ;
     private Socket socket;
@@ -24,20 +30,17 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        prepareGUI();
     }
 
-    private void prepareGUI() {
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader. load (getClass().getResource( "MainWindow.fxml" ));
+        primaryStage.setTitle( "BlackHatChat" );
+        primaryStage.setScene( new Scene(root, 600 , 400 ));
+        primaryStage.show();
     }
-
 
     public static void main(String[] args) throws IOException {
-
-
-
-
-
-
+        launch();
     }
     public void openConnection() throws IOException {
         socket = new Socket(SERVER_ADDR, SERVER_PORT);
