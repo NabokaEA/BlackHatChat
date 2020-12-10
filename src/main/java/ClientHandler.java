@@ -11,6 +11,7 @@ public class ClientHandler implements Runnable, Closeable {
     private final String userName;
     private boolean isRunning;
     private final byte[] buffer;
+    private final ChatServer server;
 
     public boolean isRunning() {
         return isRunning;
@@ -21,7 +22,7 @@ public class ClientHandler implements Runnable, Closeable {
     }
 
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientHandler(Socket socket, ChatServer server) throws IOException {
         connectionsCount++;
         connectionID = connectionsCount;
         userName = "user#" + connectionID;
@@ -29,6 +30,7 @@ public class ClientHandler implements Runnable, Closeable {
         outputStream = new DataOutputStream(socket.getOutputStream());
         isRunning = true;
         buffer = new byte[256];
+        this.server = server;
 
     }
 
@@ -37,12 +39,21 @@ public class ClientHandler implements Runnable, Closeable {
         while (isRunning) {
             try {
                 int bytesRead = inputStream.read(buffer);
+                if (bytesRead == -1) {
+                    server.kickMe(this);
+                    server.broadCast("Client " + userName + " leave!");
+                    break;
+                }
                 String messageFromClient = new String(buffer, 0, bytesRead, StandardCharsets.UTF_8);
+                if (messageFromClient.replaceAll("[/n/r]", "").isEmpty()) {
+                    continue;
+                }
                 if (messageFromClient.equals("/end")) {
                     System.out.println("Received \\End from client" + connectionID);
                     break;
                 }
                 System.out.println("Received from client:" + userName + " " + messageFromClient);
+                server.broadCast(userName + ": " + messageFromClient);
 
             } catch (IOException e) {
                 System.err.println("Exception while read");
