@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ChatServer {
 
     private boolean isRunning;
-    private ConcurrentLinkedQueue<ClientHandler> clientHandlers=new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<SerialClientHandler> clientHandlers=new ConcurrentLinkedQueue<>();
 
     public boolean isRunning() {
         return isRunning;
@@ -25,7 +25,7 @@ public class ChatServer {
                 System.out.println("Server is waiting for connection");
                 Socket socket = serverSocket.accept();
                 System.out.println("Client accepted" + socket.getInetAddress().getHostName());
-                ClientHandler clientHandler = new ClientHandler(socket, this);
+                SerialClientHandler clientHandler = new SerialClientHandler(socket, this);
                 clientHandlers.add(clientHandler);
                 new Thread(clientHandler).start();
             }
@@ -33,13 +33,13 @@ public class ChatServer {
             System.out.println("Server crushed");
         }
     }
-    public void broadCast (String message) throws IOException {
-        for (ClientHandler clientHandler : clientHandlers) {
+    public void broadCast (UserMessage message) throws IOException {
+        for (SerialClientHandler clientHandler : clientHandlers) {
             clientHandler.sendMessage(message);
 
         }
     }
-    public  void kickMe (ClientHandler clientHandler){
+    public  void kickMe (SerialClientHandler clientHandler){
         clientHandlers.remove(clientHandler);
 
     }

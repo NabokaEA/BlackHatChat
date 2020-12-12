@@ -4,9 +4,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -14,8 +12,8 @@ public class Client extends Application {
     private  String SERVER_ADDR = "localhost" ;
     private  int SERVER_PORT = 8189 ;
     private Socket socket;
-    private DataInputStream dataInputStream;
-    private DataOutputStream outputStream;
+    private ObjectInputStream objectInputStream;
+    private ObjectOutputStream objectOutputStream;
 
     public void setSERVER_ADDR(String SERVER_ADDR) {
         this.SERVER_ADDR = SERVER_ADDR;
@@ -44,14 +42,14 @@ public class Client extends Application {
     }
     public void openConnection() throws IOException {
         socket = new Socket(SERVER_ADDR, SERVER_PORT);
-        dataInputStream = new DataInputStream(socket.getInputStream());
-        outputStream = new DataOutputStream(socket.getOutputStream());
+        objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectInputStream = new ObjectInputStream(socket.getInputStream());
         new Thread( new Runnable() {
             @Override
             public void run() {
                 try {
                     while ( true ) {
-                        String strFromServer = dataInputStream.readUTF();
+                        String strFromServer = (String) objectInputStream.readObject();
                         if (strFromServer.equalsIgnoreCase( "/end" )) {
                             break ;
                         }
@@ -81,7 +79,7 @@ public class Client extends Application {
         Scanner scanner=new Scanner(System.in);
         while (scanner.hasNext()){
             String strToServer = scanner.next();
-            outputStream.writeUTF(strToServer);
+            objectOutputStream.writeObject(UserMessage.of("", strToServer));
     }
 
 
