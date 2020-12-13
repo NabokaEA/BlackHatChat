@@ -15,9 +15,7 @@ public class Auth {
     public void Enter(ActionEvent actionEvent) throws IOException {
         boolean auth = MockAuthServiceImpl.getInstance().auth(login.getText(), password.getText());
         if (auth) {
-            System.out.println(auth);
             Parent MainWindow = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-            System.out.println("1");
             Stage stage = new Stage();
             stage.setTitle("BlackCatChat");
             stage.setScene(new Scene(MainWindow, 600, 400));
@@ -30,7 +28,14 @@ public class Auth {
         }
     }
 
-    public void Registrate(ActionEvent actionEvent) {
+    public void Registrate(ActionEvent actionEvent) throws IOException {
+        Parent Registration = FXMLLoader.load(getClass().getResource("Registration.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("Регистрация");
+        stage.setScene(new Scene(Registration, 600, 400));
+        stage.setResizable(false);
+        stage.show();
+        login.getScene().getWindow().hide();
     }
 
 }
