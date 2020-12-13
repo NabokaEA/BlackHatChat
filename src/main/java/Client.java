@@ -31,9 +31,10 @@ public class Client extends Application {
     }
 
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader. load (getClass().getResource( "MainWindow.fxml" ));
-        primaryStage.setTitle( "BlackHatChat" );
-        primaryStage.setScene( new Scene(root, 600 , 400 ));
+        Parent Auth = FXMLLoader. load (getClass().getResource( "Auth.fxml" ));
+        primaryStage.setTitle( "Авторизация" );
+        primaryStage.setScene( new Scene(Auth, 600 , 400 ));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
