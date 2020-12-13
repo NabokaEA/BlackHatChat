@@ -12,6 +12,7 @@ public class MockAuthServiceImpl implements AuthService{
 
     public static MockAuthServiceImpl getInstance() {
         if (instance==null){
+            instance=new MockAuthServiceImpl();
 
         }
 
