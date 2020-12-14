@@ -3,13 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Registration">
+<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Registration">
    <children>
-      <TextField fx:id="login" layoutX="173.0" layoutY="82.0" />
-      <TextField fx:id="password" layoutX="173.0" layoutY="123.0" />
-      <Label layoutX="114.0" layoutY="86.0" prefHeight="17.0" prefWidth="39.0" text="Login" />
-      <Label layoutX="92.0" layoutY="127.0" prefHeight="17.0" prefWidth="59.0" text="Password" />
-      <Button onAction="#Enter" layoutX="222.0" layoutY="188.0" mnemonicParsing="false" text="Зарегистрировать" />
+      <TextField fx:id="login" layoutX="148.0" layoutY="52.0" />
+      <TextField fx:id="password" layoutX="148.0" layoutY="93.0" />
+      <Label layoutX="79.0" layoutY="56.0" prefHeight="17.0" prefWidth="39.0" text="Логин" />
+      <Label layoutX="79.0" layoutY="97.0" prefHeight="17.0" prefWidth="59.0" text="Пароль" />
+      <Button layoutX="197.0" layoutY="158.0" mnemonicParsing="false" onAction="#Enter" text="Зарегистрировать" />
    </children>
 </AnchorPane>

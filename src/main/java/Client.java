@@ -33,7 +33,7 @@ public class Client extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent Auth = FXMLLoader. load (getClass().getResource( "Auth.fxml" ));
         primaryStage.setTitle( "Авторизация" );
-        primaryStage.setScene( new Scene(Auth, 600 , 400 ));
+        primaryStage.setScene( new Scene(Auth, 400 , 250 ));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

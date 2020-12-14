@@ -12,9 +12,9 @@
                <children>
                   <MenuBar>
                     <menus>
-                      <Menu mnemonicParsing="false" text="File">
+                      <Menu mnemonicParsing="false" text="Файл">
                         <items>
-                          <MenuItem onAction="#exit" fx:id="exit" mnemonicParsing="false" text="Выход" />
+                          <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exit" text="Выход" />
                         </items>
                       </Menu>
                     </menus>
