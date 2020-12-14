@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ChatServer {
 
     private boolean isRunning;
-    private ConcurrentLinkedQueue<SerialClientHandler> clientHandlers=new ConcurrentLinkedQueue<>();
+    private final ConcurrentLinkedQueue<SerialClientHandler> clientHandlers=new ConcurrentLinkedQueue<>();
 
     public boolean isRunning() {
         return isRunning;

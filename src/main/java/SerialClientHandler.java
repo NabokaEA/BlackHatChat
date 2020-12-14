@@ -1,3 +1,5 @@
+import sun.plugin2.message.Message;
+
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
@@ -30,6 +32,8 @@ public class SerialClientHandler implements Runnable, Closeable {
         isRunning = true;
         buffer = new byte[256];
         this.server = server;
+        outputStream.writeObject(UserMessage.of(userName,"Ok"));
+        outputStream.flush();
 
     }
 

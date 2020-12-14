@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,31 +20,29 @@ public class MainWindow implements Initializable {
     public TextField input;
     public Button bottonSend;
     public MenuItem exit;
+    private String userName;
 
-    public void btnOneClickAction(ActionEvent actionEvent) {
 
-    }
 
-    public void btnEnterClickAction(ActionEvent actionEvent) {
-        output.appendText(input.getText() + "\n\r");
+    public void btnEnterClickAction(ActionEvent actionEvent) throws IOException {
+        NetworkService.getInstance().write(UserMessage.of(userName, input.getText()));
         input.clear();
     }
 
     public void exit(ActionEvent actionEvent) throws IOException, CloneNotSupportedException {
-        Parent Auth = FXMLLoader.load(getClass().getResource("Auth.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("Авторизация");
-        stage.setScene(new Scene(Auth, 400, 250));
-        stage.setResizable(false);
-        stage.show();
-        bottonSend.getScene().getWindow().hide();
-        FileHistoryService.getInstance().saveHistory(Arrays.asList(output.getText().split("\n").clone()));
+        Platform.exit();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             FileHistoryService.getInstance().load().forEach(historyLine->{output.appendText(historyLine+"\n");});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            userName=NetworkService.getInstance().getUsername();
+            new CharReader(output, NetworkService.getInstance().getInputStream()).start();
         } catch (IOException e) {
             e.printStackTrace();
         }

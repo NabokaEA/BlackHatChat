@@ -18,7 +18,7 @@ public class Auth {
             Parent MainWindow = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
             Stage stage = new Stage();
             stage.setTitle("BlackCatChat");
-            stage.setScene(new Scene(MainWindow, 400, 250));
+            stage.setScene(new Scene(MainWindow, 600, 400));
             stage.setResizable(false);
             stage.show();
             login.getScene().getWindow().hide();

@@ -46,10 +46,6 @@ public class UserMessage implements Serializable {
 
     @Override
     public String toString() {
-        return "UserMessage{" +
-                "messageSendTime=" + messageSendTime +
-                ", messageAuthor='" + messageAuthor + '\'' +
-                ", messageText='" + messageText + '\'' +
-                '}';
+        return String.format("%s %s:\n", messageAuthor, messageText);
     }
 }
